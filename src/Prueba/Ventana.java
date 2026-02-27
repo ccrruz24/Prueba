@@ -1,10 +1,13 @@
 package Prueba;
 
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.InputStream;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JButton;
@@ -15,14 +18,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 
 public class Ventana extends JFrame {
 
 	public Ventana() {
 		 
-		
 		this.setVisible(true);
 		this.setSize(1000, 1000);
 		//this.setLocation(200, 200);
@@ -34,6 +39,14 @@ public class Ventana extends JFrame {
 		this.setLayout(null);
 		this.setTitle("Ventana chida");
 		
+		//this.login();
+		//this.registro();
+		this.users();
+		
+		this.repaint();
+	}
+	
+	public void login() {
 		
 		JPanel login_container = new JPanel();
 		login_container.setSize(400, 600);
@@ -102,6 +115,9 @@ public class Ventana extends JFrame {
 		password.setSize(280, 40);
 		password.setLocation(60, 250);
 		login_container.add(password);
+	}
+
+	public void registro() {
 		
 		JPanel rgs_container = new JPanel();
 		rgs_container.setBounds(500, 50, 400, 600);
@@ -231,12 +247,78 @@ public class Ventana extends JFrame {
 		JButton register_btn = new JButton("Crear cuenta");
 		register_btn.setBounds(50, 500 , 300, 60);
 		rgs_container.add(register_btn);
+	}
+	
+	public void users() {
+		JPanel panel_users = new JPanel();
+		panel_users.setBounds(50, 50, 1000, 650);
+		panel_users.setOpaque(true);
+		panel_users.setBackground(Color.white);
+		panel_users.setLayout(null);
+		panel_users.setBorder(BorderFactory.createLineBorder(Color.decode("#D1CDCD"), 5, true));
+		panel_users.setBackground(Color.decode("#BBF2F2"));
+		this.add(panel_users);
+		
+		String [] table_head = {"No. Control", "Nombre", "Apellidos", "Correo electrónico", "Semestre", "Carrera", "Acciones"};
+		
+		Object [][] table_body = {
+				 {"2026001", "Carlos", "López García", "carlos.lopez@uni.edu.mx", "3", "Ingeniería en Sistemas", "Editar"},
+				 {"2026002", "Ana", "Martínez Pérez", "ana.martinez@uni.edu.mx", "5", "Ingeniería en Sistemas", "Editar"},
+				 {"2026003", "Juan", "Hernández Ruiz", "juan.hernandez@uni.edu.mx", "2", "Ingeniería en Sistemas", "Editar"},
+				 {"2026004", "María", "González Torres", "maria.gonzalez@uni.edu.mx", "6", "Ingeniería en Sistemas", "Editar"},
+				 {"2026005", "José", "Ramírez Díaz", "jose.ramirez@uni.edu.mx", "4", "Ingeniería en Sistemas", "Editar"},
+				 {"2026006", "Laura", "Sánchez Vega", "laura.sanchez@uni.edu.mx", "1", "Ingeniería en Sistemas", "Editar"},
+				 {"2026007", "Miguel", "Torres Luna", "miguel.torres@uni.edu.mx", "7", "Ingeniería en Sistemas", "Editar"},
+				 {"2026008", "Sofía", "Vargas Ortega", "sofia.vargas@uni.edu.mx", "8", "Ingeniería en Sistemas", "Editar"},
+				 {"2026009", "Daniel", "Castillo Ramos", "daniel.castillo@uni.edu.mx", "5", "Ingeniería en Sistemas", "Editar"},
+				 {"2026010", "Paula", "Mendoza Silva", "paula.mendoza@uni.edu.mx", "3", "Ingeniería en Sistemas", "Editar"},
+				 {"2026001", "Carlos", "López García", "carlos.lopez@uni.edu.mx", "3", "Ingeniería en Sistemas", "Editar"},
+				 {"2026002", "Ana", "Martínez Pérez", "ana.martinez@uni.edu.mx", "5", "Ingeniería en Sistemas", "Editar"},
+				 {"2026003", "Juan", "Hernández Ruiz", "juan.hernandez@uni.edu.mx", "2", "Ingeniería en Sistemas", "Editar"},
+				 {"2026004", "María", "González Torres", "maria.gonzalez@uni.edu.mx", "6", "Ingeniería en Sistemas", "Editar"},
+				 {"2026005", "José", "Ramírez Díaz", "jose.ramirez@uni.edu.mx", "4", "Ingeniería en Sistemas", "Editar"},
+				 {"2026006", "Laura", "Sánchez Vega", "laura.sanchez@uni.edu.mx", "1", "Ingeniería en Sistemas", "Editar"},
+				 {"2026007", "Miguel", "Torres Luna", "miguel.torres@uni.edu.mx", "7", "Ingeniería en Sistemas", "Editar"},
+				 {"2026008", "Sofía", "Vargas Ortega", "sofia.vargas@uni.edu.mx", "8", "Ingeniería en Sistemas", "Editar"},
+				 {"2026009", "Daniel", "Castillo Ramos", "daniel.castillo@uni.edu.mx", "5", "Ingeniería en Sistemas", "Editar"},
+				 {"2026010", "Paula", "Mendoza Silva", "paula.mendoza@uni.edu.mx", "3", "Ingeniería en Sistemas", "Editar"}
+		};
+		
+		JTable students = new JTable(table_body,table_head);
+		students.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		//students.isCellEditable(ERROR, ABORT);
+		
+	
+		
+		JLabel text = new JLabel("Usuario");
+		text.setBounds(400,30,200,100);
+		text.setFont(new Font("SansSerif", Font.ITALIC, 50));
+		text.setHorizontalAlignment(JLabel.CENTER);
+		text.setVerticalAlignment(JLabel.CENTER);
+		panel_users.add(text);
+		
+		JLabel text_1 = new JLabel("Usuarios 20");
+		text_1.setBounds(80,80,200,100);
+		text_1.setOpaque(true);
+		text_1.setFont(new Font("SansSerif", Font.ITALIC, 30));
+		text_1.setBackground(Color.black);
+		text_1.setForeground(Color.white);
+		text_1.setHorizontalAlignment(JLabel.CENTER);
+		text_1.setVerticalAlignment(JLabel.CENTER);
+		panel_users.add(text_1);
+		
+		
+		JScrollPane final_table = new JScrollPane(students);
+		final_table.setBounds(80,220,850,345);
+		final_table.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel_users.add(final_table, BorderLayout.CENTER);
 		
 		
 		
+
+
 		
-		
-		this.repaint();
+
 	}
 
 }
