@@ -5,8 +5,11 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
+import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
@@ -41,6 +44,16 @@ public class Ventana extends JFrame {
 		this.getContentPane().setBackground(Color.black);
 		this.setLayout(null);
 		this.setTitle("Ventana chida");
+		
+		
+		try {
+			Image iconImage = ImageIO.read(getClass().getResource("/images/image.jpg"));
+			
+			this.setIconImage(iconImage);
+					
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		
 		JMenuBar barra = new JMenuBar();
