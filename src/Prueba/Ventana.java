@@ -5,16 +5,24 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -28,7 +36,7 @@ public class Ventana extends JFrame {
 
 	public Ventana() {
 		 
-		this.setVisible(true);
+		
 		this.setSize(1000, 1000);
 		//this.setLocation(200, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,19 +47,70 @@ public class Ventana extends JFrame {
 		this.setLayout(null);
 		this.setTitle("Ventana chida");
 		
-		//this.login();
-		//this.registro();
-		this.users();
 		
+		try {
+			Image iconImage = ImageIO.read(getClass().getResource("/images/image.jpg"));
+			
+			this.setIconImage(iconImage);
+					
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		JMenuBar barra = new JMenuBar();
+		this.setJMenuBar(barra);
+		
+		JMenu menu1 = new JMenu("Archivo");
+		barra.add(menu1);
+		
+		JMenuItem opt1_mi = new JMenuItem("Nuevo");
+		menu1.add(opt1_mi);
+		
+		JMenuItem opt2_mi = new JMenuItem("Abrir");
+		menu1.add(opt2_mi);
+		
+		JMenuItem opt3_mi = new JMenuItem("Cerrar");
+		menu1.add(opt3_mi);
+		
+		menu1.addSeparator();
+		
+		
+		JMenu menu2 = new JMenu("Guardar");
+		menu1.add(menu2);
+		
+		JMenuItem opt4_mi = new JMenuItem("Guardar");
+		menu2.add(opt4_mi);
+		
+		JMenuItem opt5_mi = new JMenuItem("Guardar como");
+		menu2.add(opt5_mi);
+		
+		
+		
+		
+		this.login();
+		//this.registro();
+		//this.users();
+		
+		this.setVisible(true);
 		this.repaint();
 	}
 	
 	public void login() {
 		
-		JPanel login_container = new JPanel();
+		JPanel login_container = new JPanel() {
+			private Image fondo = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
+
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		        // Dibujar la imagen ajustada al tamaño del panel
+		        g.drawImage(fondo, 0, 0, 400, 600, this);
+		    }
+		};
+
 		login_container.setSize(400, 600);
 		login_container.setLocation(50, 50);
-		login_container.setBackground(Color.decode("#13E836"));
 		login_container.setLayout(null);
 		this.add(login_container);
 		
@@ -64,6 +123,7 @@ public class Ventana extends JFrame {
 		tag_title.setSize(150, 30);
 		tag_title.setLocation(120, 30);
 		tag_title.setBackground(Color.white);
+		tag_title.setForeground(Color.white);
 		tag_title.setOpaque(false);
 		tag_title.setFont(new Font("Arial", Font.PLAIN,26));
 		tag_title.setVerticalAlignment(JLabel.CENTER);
@@ -73,6 +133,7 @@ public class Ventana extends JFrame {
 		user.setSize(110, 20);
 		user.setLocation(20, 115);
 		user.setBackground(Color.white);
+		user.setForeground(Color.white);
 		user.setOpaque(false);
 		user.setFont(new Font("Arial", Font.PLAIN,18));
 		user.setVerticalAlignment(JLabel.CENTER);
@@ -82,6 +143,7 @@ public class Ventana extends JFrame {
 		passwor.setSize(110, 20);
 		passwor.setLocation(20, 215);
 		passwor.setBackground(Color.white);
+		passwor.setForeground(Color.white);
 		passwor.setOpaque(false);
 		passwor.setFont(new Font("Arial", Font.PLAIN,18));
 		passwor.setVerticalAlignment(JLabel.CENTER);
@@ -102,6 +164,7 @@ public class Ventana extends JFrame {
 		rememberme.setSize(100, 20);
 		rememberme.setLocation(60, 300);
 		rememberme.setOpaque(false);
+		rememberme.setForeground(Color.white);
 		login_container.add(rememberme);
 		
 		JButton acces_btn = new JButton();
@@ -115,6 +178,12 @@ public class Ventana extends JFrame {
 		password.setSize(280, 40);
 		password.setLocation(60, 250);
 		login_container.add(password);
+		
+		
+
+        
+
+		
 	}
 
 	public void registro() {
@@ -313,10 +382,6 @@ public class Ventana extends JFrame {
 		final_table.setBorder(BorderFactory.createLineBorder(Color.black));
 		panel_users.add(final_table, BorderLayout.CENTER);
 		
-		
-		
-
-
 		
 
 	}
