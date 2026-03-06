@@ -5,6 +5,7 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -88,7 +90,8 @@ public class Ventana extends JFrame {
 		
 		//this.login();
 		//this.registro();
-		this.users();
+		//this.users();
+		this.calculate();
 		
 		this.setVisible(true);
 		this.repaint();
@@ -96,7 +99,19 @@ public class Ventana extends JFrame {
 	
 	public void login() {
 		
-		JPanel login_container = new JPanel();
+		JPanel login_container = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1525773152786885421L;
+			private Image fondo = new ImageIcon(getClass().getResource("/images/jeje.jpg")).getImage();
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+		    }
+		};
+
 		login_container.setSize(400, 600);
 		login_container.setLocation(50, 50);
 		login_container.setBackground(Color.decode("#13E836"));
@@ -112,6 +127,7 @@ public class Ventana extends JFrame {
 		tag_title.setSize(150, 30);
 		tag_title.setLocation(120, 30);
 		tag_title.setBackground(Color.white);
+		tag_title.setForeground(Color.white);
 		tag_title.setOpaque(false);
 		tag_title.setFont(new Font("Arial", Font.PLAIN,26));
 		tag_title.setVerticalAlignment(JLabel.CENTER);
@@ -121,6 +137,7 @@ public class Ventana extends JFrame {
 		user.setSize(110, 20);
 		user.setLocation(20, 115);
 		user.setBackground(Color.white);
+		user.setForeground(Color.white);
 		user.setOpaque(false);
 		user.setFont(new Font("Arial", Font.PLAIN,18));
 		user.setVerticalAlignment(JLabel.CENTER);
@@ -130,6 +147,7 @@ public class Ventana extends JFrame {
 		passwor.setSize(110, 20);
 		passwor.setLocation(20, 215);
 		passwor.setBackground(Color.white);
+		passwor.setForeground(Color.white);
 		passwor.setOpaque(false);
 		passwor.setFont(new Font("Arial", Font.PLAIN,18));
 		passwor.setVerticalAlignment(JLabel.CENTER);
@@ -149,6 +167,7 @@ public class Ventana extends JFrame {
 		JCheckBox rememberme = new JCheckBox("Recordarme");
 		rememberme.setSize(100, 20);
 		rememberme.setLocation(60, 300);
+		rememberme.setForeground(Color.white);
 		rememberme.setOpaque(false);
 		login_container.add(rememberme);
 		
@@ -362,11 +381,46 @@ public class Ventana extends JFrame {
 		panel_users.add(final_table, BorderLayout.CENTER);
 		
 		
+
+	}
+	
+	public void calculate() {
+		JPanel panel_user = new JPanel();
+		panel_user.setSize(500,700);
+		panel_user.setLocation(250,50);
+		panel_user.setBackground(Color.decode("#2D2E33"));
+		panel_user.setLayout(null);
+		this.add(panel_user);
 		
-
-
+		JLabel field = new JLabel("10 varos");
+		field.setSize(280,40);
+		field.setLocation(10,10);
+		field.setOpaque(true);
+		field.setBackground(Color.white);
+		field.setFont(new Font("Arial", Font.BOLD, 22));
+		field.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+		panel_user.add(field);
 		
-
+		int cor_x = 30, cor_y = 60;
+		String [] botones = {"CE","","","","7","8","9","/","4","5","6","*","1","2","3","+","0",".","-","="};
+		
+		for(int i = 0; i< 20; i++) {
+			JButton ce = new JButton(botones[i]);
+			ce.setSize(100,100);
+			ce.setLocation(cor_x, cor_y);
+			panel_user.add(ce);
+			
+			cor_x += 110;
+			panel_user.add(ce);
+			
+			if(cor_x >= 420) {
+				cor_x = 30;
+				cor_y += 110;
+			}
+			
+		}
+		
+		
 	}
 
 }
