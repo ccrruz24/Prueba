@@ -88,9 +88,10 @@ public class Ventana extends JFrame {
 		
 		
 		
-		this.login();
+		//this.login();
 		//this.registro();
 		//this.users();
+		this.calculate();
 		
 		this.setVisible(true);
 		this.repaint();
@@ -99,7 +100,11 @@ public class Ventana extends JFrame {
 	public void login() {
 		
 		JPanel login_container = new JPanel() {
-			private Image fondo = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1525773152786885421L;
+			private Image fondo = new ImageIcon(getClass().getResource("/images/jeje.jpg")).getImage();
 		    @Override
 		    protected void paintComponent(Graphics g) {
 		        super.paintComponent(g);
@@ -376,11 +381,46 @@ public class Ventana extends JFrame {
 		panel_users.add(final_table, BorderLayout.CENTER);
 		
 		
+
+	}
+	
+	public void calculate() {
+		JPanel panel_user = new JPanel();
+		panel_user.setSize(500,700);
+		panel_user.setLocation(250,50);
+		panel_user.setBackground(Color.decode("#2D2E33"));
+		panel_user.setLayout(null);
+		this.add(panel_user);
 		
-
-
+		JLabel field = new JLabel("10 varos");
+		field.setSize(280,40);
+		field.setLocation(10,10);
+		field.setOpaque(true);
+		field.setBackground(Color.white);
+		field.setFont(new Font("Arial", Font.BOLD, 22));
+		field.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+		panel_user.add(field);
 		
-
+		int cor_x = 30, cor_y = 60;
+		String [] botones = {"CE","","","","7","8","9","/","4","5","6","*","1","2","3","+","0",".","-","="};
+		
+		for(int i = 0; i< 20; i++) {
+			JButton ce = new JButton(botones[i]);
+			ce.setSize(100,100);
+			ce.setLocation(cor_x, cor_y);
+			panel_user.add(ce);
+			
+			cor_x += 110;
+			panel_user.add(ce);
+			
+			if(cor_x >= 420) {
+				cor_x = 30;
+				cor_y += 110;
+			}
+			
+		}
+		
+		
 	}
 
 }
