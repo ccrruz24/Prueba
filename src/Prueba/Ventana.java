@@ -33,7 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.SwingConstants;
 
 public class Ventana extends JFrame {
 
@@ -87,10 +87,8 @@ public class Ventana extends JFrame {
 		// this.login();
 		// this.registro();
 		// this.users();
-		//this.calculadora();
+		// this.calculadora();
 		this.interes();
-		
-		
 
 		this.setVisible(true);
 		this.repaint();
@@ -421,100 +419,118 @@ public class Ventana extends JFrame {
 
 		}
 	}
-	
+
 	public void interes() {
-		
+
 		JLabel textinterets = new JLabel("Interés");
 		textinterets.setBounds(100, 20, 200, 100);
 		textinterets.setForeground(Color.red);
 		textinterets.setOpaque(false);
-		textinterets.setFont(new Font("SansSerif", Font.ITALIC,50));
+		textinterets.setFont(new Font("SansSerif", Font.ITALIC, 50));
 		this.add(textinterets);
-		
-		
-		
+
 		JPanel interest_container = new JPanel();
-	    interest_container.setSize(600, 300);
-	    interest_container.setLocation(200, 100);
-	    interest_container.setBackground(Color.decode("#8BE098"));
-	    interest_container.setLayout(null);
-	    interest_container.setBorder(BorderFactory.createEtchedBorder());
-	    this.add(interest_container);
-	    
-	    // Título
-	    JLabel titulo = new JLabel("Calcular Interés");
-	    titulo.setSize(400, 40);
-	    titulo.setLocation(-100, 0);
-	    titulo.setFont(new Font("Arial", Font.BOLD, 26));
-	    titulo.setForeground(Color.BLACK);
-	    titulo.setHorizontalAlignment(JLabel.CENTER);
-	    interest_container.add(titulo);
-	    
-	    // Etiquetas y campos
-	    JLabel capital = new JLabel("Capital:");
-	    capital.setBounds(50, 80, 120, 30);
-	    capital.setFont(new Font("SansSerif", Font.ITALIC, 20));
-	    interest_container.add(capital);
+		interest_container.setSize(600, 300);
+		interest_container.setLocation(200, 100);
+		interest_container.setBackground(Color.decode("#8BE098"));
+		interest_container.setLayout(null);
+		interest_container.setBorder(BorderFactory.createEtchedBorder());
+		this.add(interest_container);
 
-	    JTextField textCapital = new JTextField();
-	    textCapital.setBounds(300, 80, 200, 30);
-	    interest_container.add(textCapital);
+		// Título
+		JLabel titulo = new JLabel("Calcular Interés");
+		titulo.setSize(400, 40);
+		titulo.setLocation(-100, 0);
+		titulo.setFont(new Font("Arial", Font.BOLD, 26));
+		titulo.setForeground(Color.BLACK);
+		titulo.setHorizontalAlignment(JLabel.CENTER);
+		interest_container.add(titulo);
 
-	    JLabel time = new JLabel("Tiempo :");
-	    time.setBounds(50, 130, 120, 30);
-	    time.setFont(new Font("SansSerif", Font.ITALIC, 20));
-	    interest_container.add(time);
+		// Etiquetas y campos
+		JLabel capital = new JLabel("Capital:");
+		capital.setBounds(50, 80, 120, 30);
+		capital.setFont(new Font("SansSerif", Font.ITALIC, 20));
+		interest_container.add(capital);
 
-	    JTextField textTime = new JTextField();
-	    textTime.setBounds(300, 130, 200, 30);
-	    interest_container.add(textTime);
+		JTextField textCapital = new JTextField();
+		textCapital.setBounds(300, 80, 200, 30);
+		interest_container.add(textCapital);
 
-	    JLabel tasa = new JLabel("Tasa de interés:");
-	    tasa.setBounds(50, 180, 150, 30);
-	    tasa.setFont(new Font("SansSerif", Font.ITALIC, 20));
-	    interest_container.add(tasa);
+		JLabel time = new JLabel("Tiempo :");
+		time.setBounds(50, 130, 120, 30);
+		time.setFont(new Font("SansSerif", Font.ITALIC, 20));
+		interest_container.add(time);
 
-	    JTextField textTasa = new JTextField();
-	    textTasa.setBounds(300, 180, 200, 30);
-	    interest_container.add(textTasa);
+		JTextField textTime = new JTextField();
+		textTime.setBounds(300, 130, 200, 30);
+		interest_container.add(textTime);
 
-	    // Botones
-	    JButton btnCalcular = new JButton("Calcular");
-	    btnCalcular.setBounds(200, 240, 100, 40);
-	    interest_container.add(btnCalcular);
-	    
-	    JButton btnCancelar = new JButton("Cancelar");
-	    btnCancelar.setBounds(320, 240, 100, 40);
-	    interest_container.add(btnCancelar);
+		JLabel tasa = new JLabel("Tasa de interés:");
+		tasa.setBounds(50, 180, 150, 30);
+		tasa.setFont(new Font("SansSerif", Font.ITALIC, 20));
+		interest_container.add(tasa);
 
-	    
-	    JPanel interest_results = new JPanel();
-	    interest_results.setSize(600, 200);
-	    interest_results.setLocation(200, 450);
-	    interest_results.setBackground(Color.decode("#EB9898"));
-	    interest_results.setLayout(null);
-	    this.add(interest_results);
-	    
-	    
-	    // Panel de resultados
-	    JLabel interest = new JLabel("Interés: ");
-	    interest.setBounds(50, 50, 200, 30);
-	    interest.setFont(new Font("SansSerif", Font.ITALIC, 20));
-	    interest_results.add(interest);
-	    
-	    JTextField textInterest = new JTextField();
-	    textInterest.setBounds(300, 50, 200, 30);
-	    interest_results.add(textInterest);
+		JTextField textTasa = new JTextField();
+		textTasa.setBounds(300, 180, 200, 30);
+		interest_container.add(textTasa);
 
-	    JLabel amount = new JLabel("Monto Final: ");
-	    amount.setBounds(50, 120, 200, 30);
-	    amount.setFont(new Font("SansSerif", Font.ITALIC, 20));
-	    interest_results.add(amount);
-	    
-	    JTextField textAmount = new JTextField();
-	    textAmount.setBounds(300, 120, 200, 30);
-	    interest_results.add(textAmount);
-	    
+		// Botón Guardar con ícono desde resources
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(200, 240, 120, 40);
+
+		// Cargar y escalar ícono
+		ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/images/guardar.jpg"));
+		Image imgGuardar = iconoGuardar.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		btnGuardar.setIcon(new ImageIcon(imgGuardar));
+
+		// Ajustar posición del texto respecto al ícono
+		btnGuardar.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnGuardar.setVerticalTextPosition(SwingConstants.CENTER);
+
+		interest_container.add(btnGuardar);
+
+
+		// Botón Cancelar con ícono desde resources
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(340, 240, 120, 40);
+
+		// Cargar y escalar ícono
+		ImageIcon iconoCancelar = new ImageIcon(getClass().getResource("/images/cancelar.jpg"));
+		Image imgCancelar = iconoCancelar.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		btnCancelar.setIcon(new ImageIcon(imgCancelar));
+
+		// Ajustar posición del texto respecto al ícono
+		btnCancelar.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnCancelar.setVerticalTextPosition(SwingConstants.CENTER);
+
+		interest_container.add(btnCancelar);
+
+
+		JPanel interest_results = new JPanel();
+		interest_results.setSize(600, 200);
+		interest_results.setLocation(200, 450);
+		interest_results.setBackground(Color.decode("#EB9898"));
+		interest_results.setLayout(null);
+		this.add(interest_results);
+
+		// Panel de resultados
+		JLabel interest = new JLabel("Interés: ");
+		interest.setBounds(50, 50, 200, 30);
+		interest.setFont(new Font("SansSerif", Font.ITALIC, 20));
+		interest_results.add(interest);
+
+		JTextField textInterest = new JTextField();
+		textInterest.setBounds(300, 50, 200, 30);
+		interest_results.add(textInterest);
+
+		JLabel amount = new JLabel("Monto Final: ");
+		amount.setBounds(50, 120, 200, 30);
+		amount.setFont(new Font("SansSerif", Font.ITALIC, 20));
+		interest_results.add(amount);
+
+		JTextField textAmount = new JTextField();
+		textAmount.setBounds(300, 120, 200, 30);
+		interest_results.add(textAmount);
 
 	}
 
