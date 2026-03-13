@@ -1,5 +1,6 @@
 package Prueba;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
@@ -7,8 +8,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -88,7 +92,8 @@ public class Ventana extends JFrame {
 		// this.registro();
 		// this.users();
 		// this.calculadora();
-		this.interes();
+		//this.interes();
+		this.paint();
 
 		this.setVisible(true);
 		this.repaint();
@@ -532,6 +537,66 @@ public class Ventana extends JFrame {
 		textAmount.setBounds(300, 120, 200, 30);
 		interest_results.add(textAmount);
 
+	}
+	
+	public void paint() {
+		
+		JPanel pane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                
+                Graphics2D g2d = (Graphics2D) g;
+                
+                
+                g2d.drawLine(0, 0, 1000, 700);
+                
+                g2d.setColor(Color.red);
+                g2d.setStroke(new BasicStroke(3));
+                g2d.drawOval(100,100 ,150 ,50);
+                
+                g2d.setStroke(new BasicStroke(3));
+                
+                g2d.setColor(Color.green);
+                g2d.drawPolygon(new int[] {300,100,500}, new int[] {100,300,300},3);
+                
+                g2d.setColor(Color.cyan);
+                g2d.drawRect(250,300 ,100 ,100 );
+                g2d.drawRoundRect(500, 150, 100, 100, 10, 10);
+                
+                g2d.drawArc(400, 100, 100, 100, 0, 90);
+                
+                g2d.setFont(new Font("Arial", Font.BOLD,22));
+                g2d.drawString("Hola", 100, 100);
+                
+                g2d.setColor(Color.blue);
+                g2d.fillOval(500, 50, 50, 50);
+                g2d.fillPolygon(new int[] {500,300,700}, new int[] {300,500,500},3);
+                g2d.fillRect(500, 500, 100, 100);
+                
+                
+                g2d.setColor(Color.orange);
+                g2d.fillRoundRect(500, 500, 100, 100, 10, 10);
+                
+                g2d.fillArc(450, 150, 100, 100, 0, 300);
+                
+                BufferedImage image;
+				try {
+					
+					image = ImageIO.read(new File("src/images/cancelar.jpg"));
+					g2d.drawImage(image, 0, 0, null);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+                
+                
+                
+            }
+        };
+        pane.setSize(1000,700);
+        pane.setLocation(0, 0);
+        this.add(pane);
 	}
 
 }
