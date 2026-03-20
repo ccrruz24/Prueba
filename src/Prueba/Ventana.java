@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JApplet;
@@ -26,6 +29,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -38,6 +42,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Ventana extends JFrame {
 
@@ -88,21 +93,37 @@ public class Ventana extends JFrame {
 		JMenuItem opt5_mi = new JMenuItem("Guardar como");
 		menu2.add(opt5_mi);
 
-		// this.login();
+		//this.login();
 		// this.registro();
 		// this.users();
-		// this.calculadora();
-		//this.interes();
-		this.paint();
+		
+		
+		this.router("login");
 
 		this.setVisible(true);
 		this.repaint();
+	
+	}
+	
+	public void router(String target) {
+		
+		this.getContentPane().removeAll();
+		
+		if(target.equals("login")) 
+			this.login();
+			
+		if(target.equals("registro")) 
+			this.registro();
+		
+		this.repaint();
+		this.revalidate();
+			
 	}
 
 	public void login() {
 
 		JPanel login_container = new JPanel() {
-			private Image fondo = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
+			private Image fondo = new ImageIcon(getClass().getResource("/images/jeje.jpg")).getImage();
 
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -168,6 +189,11 @@ public class Ventana extends JFrame {
 		rememberme.setOpaque(false);
 		login_container.add(rememberme);
 
+		JPasswordField password = new JPasswordField();
+		password.setSize(280, 40);
+		password.setLocation(60, 250);
+		login_container.add(password);
+
 		JButton acces_btn = new JButton();
 		acces_btn.setText("Acceder");
 		acces_btn.setSize(200, 40);
@@ -175,24 +201,91 @@ public class Ventana extends JFrame {
 		acces_btn.setFont(new Font("Arial", Font.ITALIC, 18));
 		login_container.add(acces_btn);
 
-		JPasswordField password = new JPasswordField();
-		password.setSize(280, 40);
-		password.setLocation(60, 250);
-		login_container.add(password);
+		acces_btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String email = email_input.getText();
+				String pass = password.getText();
+
+				if (email.equals("")) {
+		            email_input.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "El campo usuario está vacío",
+		                "Error",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		            return; 
+		        } else {
+		            email_input.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+		        }
+
+		        if (pass.equals("")) {
+		            password.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "El campo contraseña está vacío",
+		                "Error",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		            return;
+		        } else if (pass.length() < 8) {
+		            password.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "La contraseña debe tener al menos 8 caracteres",
+		                "Error",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		            return;
+		        } else {
+		            password.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+		        }
+
+		        // Datos correctos 
+		        String correo = "admin@alu.uabcs.mx";
+		        String contra = "12345678";
+
+		        if (email.equals(correo) && pass.equals(contra)) {
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "Bienvenido, ",
+		                "Acceso correcto",
+		                JOptionPane.INFORMATION_MESSAGE
+		            );
+		        } else {
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "Usuario o contraseña incorrectos",
+		                "Error de acceso",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		        }
+		    }
+		});
+		
+		JButton registro = new JButton("¿Aun no tienes cuenta?");
+		registro.setSize(250, 50);
+		registro.setLocation(80, 400);
+		registro.setFont(new Font("Arial", Font.ITALIC, 18));
+		login_container.add(registro);
+		
+		registro.addActionListener(e->{
+			this.router("registro");
+		});
+
+		
 	}
 
 	public void registro() {
 
 		JPanel rgs_container = new JPanel();
-		rgs_container.setBounds(500, 50, 400, 600);
+		rgs_container.setBounds(500, 50, 400, 700);
 		rgs_container.setOpaque(true);
 		rgs_container.setBackground(Color.decode("#5836C7"));
 		rgs_container.setLayout(null);
 		this.add(rgs_container);
-
-		// TITULO
-
-		// LABEL NAME
 
 		JLabel user_name = new JLabel("Nombre de usuario");
 		user_name.setBounds(50, 50, 250, 120);
@@ -238,20 +331,20 @@ public class Ventana extends JFrame {
 
 		JCheckBox opt_sweet = new JCheckBox("Dulce");
 		opt_sweet.setBounds(50, 320, 100, 40);
-		opt_sweet.setForeground(Color.white);
-		opt_sweet.setOpaque(false);
+		opt_sweet.setForeground(Color.black);
+		opt_sweet.setOpaque(true);
 		rgs_container.add(opt_sweet);
 
 		JCheckBox opt_salty = new JCheckBox("Salado");
 		opt_salty.setBounds(150, 320, 100, 40);
-		opt_salty.setForeground(Color.white);
-		opt_salty.setOpaque(false);
+		opt_salty.setForeground(Color.black);
+		opt_salty.setOpaque(true);
 		rgs_container.add(opt_salty);
 
 		JCheckBox opt_healty = new JCheckBox("Saludable");
 		opt_healty.setBounds(250, 320, 100, 40);
-		opt_healty.setForeground(Color.white);
-		opt_healty.setOpaque(false);
+		opt_healty.setForeground(Color.black);
+		opt_healty.setOpaque(true);
 		rgs_container.add(opt_healty);
 
 		// LABEL PREFERENCES
@@ -277,15 +370,16 @@ public class Ventana extends JFrame {
 		rgs_container.add(terms_text);
 
 		JRadioButton accept_terms = new JRadioButton("Acepto los terminos");
-		accept_terms.setBounds(50, 400, 180, 40);
-		accept_terms.setOpaque(false);
-		accept_terms.setForeground(Color.white);
+		accept_terms.setBounds(20, 400, 180, 40);
+		accept_terms.setOpaque(true);
+		accept_terms.setForeground(Color.black);
+		accept_terms.setBorderPainted(true);
 		rgs_container.add(accept_terms);
 
 		JRadioButton reject_terms = new JRadioButton("Rechazo los terminos ");
-		reject_terms.setBounds(220, 400, 200, 40);
-		reject_terms.setOpaque(false);
-		reject_terms.setForeground(Color.white);
+		reject_terms.setBounds(220, 400, 170, 40);
+		reject_terms.setOpaque(true);
+		reject_terms.setForeground(Color.black);
 		rgs_container.add(reject_terms);
 
 		ButtonGroup terms = new ButtonGroup();
@@ -302,6 +396,47 @@ public class Ventana extends JFrame {
 		JButton register_btn = new JButton("Crear cuenta");
 		register_btn.setBounds(50, 500, 300, 60);
 		rgs_container.add(register_btn);
+
+		register_btn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String name = text_name.getText();
+				String BIO = text_Area.getText();
+				Boolean term = accept_terms.isSelected();
+
+				if (name.equals("")) {
+					text_name.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					text_name.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+
+				if (BIO.equals("")) {
+					text_Area.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					text_Area.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+
+				if (term == false) {
+					accept_terms.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					accept_terms.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+
+			}
+		});
+		
+		JButton login_btn = new JButton();
+		login_btn.setText("¿Ya tienes cuenta?");
+		login_btn.setSize(250, 50);
+		login_btn.setLocation(80, 590);
+		login_btn.setFont(new Font("Arial", Font.ITALIC, 18));
+		rgs_container.add(login_btn);
+		
+		login_btn.addActionListener(e->{
+			this.router("login");
+		});
 	}
 
 	public void users() {
@@ -386,217 +521,8 @@ public class Ventana extends JFrame {
 		panel_users.add(final_table, BorderLayout.CENTER);
 
 	}
-
-	public void calculadora() {
-		JPanel panel_user = new JPanel();
-		panel_user.setSize(500, 700);
-		panel_user.setLocation(250, 50);
-		panel_user.setBackground(Color.decode("#2D2E33"));
-		panel_user.setLayout(null);
-		this.add(panel_user);
-
-		JLabel field = new JLabel("10 varos");
-		field.setSize(280, 40);
-		field.setLocation(10, 10);
-		field.setOpaque(true);
-		field.setBackground(Color.white);
-		field.setFont(new Font("Arial", Font.BOLD, 22));
-		field.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-		panel_user.add(field);
-
-		int cor_x = 30, cor_y = 60;
-		String[] botones = { "CE", "", "", "", "7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "+", "0", ".",
-				"-", "=" };
-
-		for (int i = 0; i < 20; i++) {
-			JButton ce = new JButton(botones[i]);
-			ce.setSize(100, 100);
-			ce.setLocation(cor_x, cor_y);
-			panel_user.add(ce);
-
-			cor_x += 110;
-			panel_user.add(ce);
-
-			if (cor_x >= 420) {
-				cor_x = 30;
-				cor_y += 110;
-			}
-
-		}
-	}
-
-	public void interes() {
-
-		JLabel textinterets = new JLabel("Interés");
-		textinterets.setBounds(100, 20, 200, 100);
-		textinterets.setForeground(Color.red);
-		textinterets.setOpaque(false);
-		textinterets.setFont(new Font("SansSerif", Font.ITALIC, 50));
-		this.add(textinterets);
-
-		JPanel interest_container = new JPanel();
-		interest_container.setSize(600, 300);
-		interest_container.setLocation(200, 100);
-		interest_container.setBackground(Color.decode("#8BE098"));
-		interest_container.setLayout(null);
-		interest_container.setBorder(BorderFactory.createEtchedBorder());
-		this.add(interest_container);
-
-		// Título
-		JLabel titulo = new JLabel("Calcular Interés");
-		titulo.setSize(400, 40);
-		titulo.setLocation(-100, 0);
-		titulo.setFont(new Font("Arial", Font.BOLD, 26));
-		titulo.setForeground(Color.BLACK);
-		titulo.setHorizontalAlignment(JLabel.CENTER);
-		interest_container.add(titulo);
-
-		// Etiquetas y campos
-		JLabel capital = new JLabel("Capital:");
-		capital.setBounds(50, 80, 120, 30);
-		capital.setFont(new Font("SansSerif", Font.ITALIC, 20));
-		interest_container.add(capital);
-
-		JTextField textCapital = new JTextField();
-		textCapital.setBounds(300, 80, 200, 30);
-		interest_container.add(textCapital);
-
-		JLabel time = new JLabel("Tiempo :");
-		time.setBounds(50, 130, 120, 30);
-		time.setFont(new Font("SansSerif", Font.ITALIC, 20));
-		interest_container.add(time);
-
-		JTextField textTime = new JTextField();
-		textTime.setBounds(300, 130, 200, 30);
-		interest_container.add(textTime);
-
-		JLabel tasa = new JLabel("Tasa de interés:");
-		tasa.setBounds(50, 180, 150, 30);
-		tasa.setFont(new Font("SansSerif", Font.ITALIC, 20));
-		interest_container.add(tasa);
-
-		JTextField textTasa = new JTextField();
-		textTasa.setBounds(300, 180, 200, 30);
-		interest_container.add(textTasa);
-
-		// Botón Guardar con ícono desde resources
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(200, 240, 120, 40);
-
-		// Cargar y escalar ícono
-		ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/images/guardar.jpg"));
-		Image imgGuardar = iconoGuardar.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		btnGuardar.setIcon(new ImageIcon(imgGuardar));
-
-		// Ajustar posición del texto respecto al ícono
-		btnGuardar.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnGuardar.setVerticalTextPosition(SwingConstants.CENTER);
-
-		interest_container.add(btnGuardar);
-
-
-		// Botón Cancelar con ícono desde resources
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(340, 240, 120, 40);
-
-		// Cargar y escalar ícono
-		ImageIcon iconoCancelar = new ImageIcon(getClass().getResource("/images/cancelar.jpg"));
-		Image imgCancelar = iconoCancelar.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-		btnCancelar.setIcon(new ImageIcon(imgCancelar));
-
-		// Ajustar posición del texto respecto al ícono
-		btnCancelar.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnCancelar.setVerticalTextPosition(SwingConstants.CENTER);
-
-		interest_container.add(btnCancelar);
-
-
-		JPanel interest_results = new JPanel();
-		interest_results.setSize(600, 200);
-		interest_results.setLocation(200, 450);
-		interest_results.setBackground(Color.decode("#EB9898"));
-		interest_results.setLayout(null);
-		this.add(interest_results);
-
-		// Panel de resultados
-		JLabel interest = new JLabel("Interés: ");
-		interest.setBounds(50, 50, 200, 30);
-		interest.setFont(new Font("SansSerif", Font.ITALIC, 20));
-		interest_results.add(interest);
-
-		JTextField textInterest = new JTextField();
-		textInterest.setBounds(300, 50, 200, 30);
-		interest_results.add(textInterest);
-
-		JLabel amount = new JLabel("Monto Final: ");
-		amount.setBounds(50, 120, 200, 30);
-		amount.setFont(new Font("SansSerif", Font.ITALIC, 20));
-		interest_results.add(amount);
-
-		JTextField textAmount = new JTextField();
-		textAmount.setBounds(300, 120, 200, 30);
-		interest_results.add(textAmount);
-
-	}
 	
-	public void paint() {
-		
-		JPanel pane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                
-                Graphics2D g2d = (Graphics2D) g;
-                
-                
-                g2d.drawLine(0, 0, 1000, 700);
-                
-                g2d.setColor(Color.red);
-                g2d.setStroke(new BasicStroke(3));
-                g2d.drawOval(100,100 ,150 ,50);
-                
-                g2d.setStroke(new BasicStroke(3));
-                
-                g2d.setColor(Color.green);
-                g2d.drawPolygon(new int[] {300,100,500}, new int[] {100,300,300},3);
-                
-                g2d.setColor(Color.cyan);
-                g2d.drawRect(250,300 ,100 ,100 );
-                g2d.drawRoundRect(500, 150, 100, 100, 10, 10);
-                
-                g2d.drawArc(400, 100, 100, 100, 0, 90);
-                
-                g2d.setFont(new Font("Arial", Font.BOLD,22));
-                g2d.drawString("Hola", 100, 100);
-                
-                g2d.setColor(Color.blue);
-                g2d.fillOval(500, 50, 50, 50);
-                g2d.fillPolygon(new int[] {500,300,700}, new int[] {300,500,500},3);
-                g2d.fillRect(500, 500, 100, 100);
-                
-                
-                g2d.setColor(Color.orange);
-                g2d.fillRoundRect(500, 500, 100, 100, 10, 10);
-                
-                g2d.fillArc(450, 150, 100, 100, 0, 300);
-                
-                BufferedImage image;
-				try {
-					
-					image = ImageIO.read(new File("src/images/cancelar.jpg"));
-					g2d.drawImage(image, 0, 0, null);
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-                
-                
-                
-            }
-        };
-        pane.setSize(1000,700);
-        pane.setLocation(0, 0);
-        this.add(pane);
-	}
+
+	
 
 }
