@@ -92,6 +92,22 @@ public class Ventana extends JFrame {
 
 		JMenuItem opt5_mi = new JMenuItem("Guardar como");
 		menu2.add(opt5_mi);
+		
+		JMenu menu3 = new JMenu("Cuentas");
+		barra.add(menu3);
+		
+		JMenuItem login = new JMenuItem("Registro");
+		login.addActionListener(e ->{
+			this.router("registro");
+		});
+		menu3.add(login);
+		
+			JMenuItem registro = new JMenuItem("login");
+			registro.addActionListener(e ->{
+				this.router("login");
+			});
+			menu3.add(registro);
+		
 
 		//this.login();
 		// this.registro();
@@ -242,7 +258,10 @@ public class Ventana extends JFrame {
 		        } else {
 		            password.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
 		        }
-
+		        
+		       
+		        
+		  
 		        // Datos correctos 
 		        String correo = "admin@alu.uabcs.mx";
 		        String contra = "12345678";
